@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
-import 'package:manzz_shop/model/product.dart';
+import '../model/product.dart';
 import 'package:manzz_shop/servise/remote_servise/remote_popular_category_service.dart';
-import 'package:manzz_shop/servise/remote_servise/remote_popular_product_service.dart';
+import '../servise/remote_servise/remote_popular_product_service.dart';
 import '../model/ad_banner.dart';
 import '../model/category.dart';
 import '../model/product.dart';
