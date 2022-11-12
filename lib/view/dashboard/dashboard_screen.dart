@@ -16,9 +16,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget build(BuildContext context) {
     return GetBuilder<DashboardController>(
       builder: (controller) => Scaffold(
-        body: SafeArea(child: IndexedStack(
-          index: controller.tabIndex,
-          children: [
+        body: SafeArea(
+            child: IndexedStack(
+          index: controller.tabIndex,          children: [
             const HomeScreen(),
             Container(
               color: Colors.red,
@@ -37,15 +37,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
             border: Border(
                 top: BorderSide(
                     color: Theme.of(context).colorScheme.secondary,
-                    width: 0.5
-                )
-            ),
+                    width: 0.5)),
           ),
           child: SnakeNavigationBar.color(
             behaviour: SnakeBarBehaviour.floating,
             snakeShape: SnakeShape.circle,
-            padding: EdgeInsets.symmetric(vertical: 5),
-            unselectedLabelStyle: TextStyle(fontSize: 11),
+            padding: const EdgeInsets.symmetric(vertical: 5),
+            unselectedLabelStyle: const TextStyle(fontSize: 11),
             snakeViewColor: Theme.of(context).primaryColor,
             unselectedItemColor: Theme.of(context).colorScheme.secondary,
             showUnselectedLabels: true,
@@ -55,9 +53,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
             },
             items: [
               BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-              BottomNavigationBarItem(icon: Icon(Icons.category), label: 'Category'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.category), label: 'Category'),
               BottomNavigationBarItem(icon: Icon(Icons.menu), label: 'Menu'),
-              BottomNavigationBarItem(icon: Icon(Icons.account_circle), label: 'My Profile'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.account_circle), label: 'My Profile'),
             ],
           ),
         ),

@@ -1,0 +1,4 @@
+#Tue Nov 08 14:07:55 ICT 2022
+base.0=C\:\\Users\\ASUS_TUF\\OneDrive - SMK Raden Umar Said Kudus\\Documents\\Tugas pak aji\\manzz_shop(Ilman)\\manzz_shop-1\\manzz_shop\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+renamed.0=classes.dex
+path.0=classes.dex

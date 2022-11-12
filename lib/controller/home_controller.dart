@@ -1,5 +1,8 @@
+import 'dart:ui';
+
 import 'package:get/get.dart';
 import 'package:manzz_shop/model/product.dart';
+import 'package:manzz_shop/servise/remote_servise/local_service/local_ad_banner_service.dart';
 import 'package:manzz_shop/servise/remote_servise/remote_popular_category_service.dart';
 import 'package:manzz_shop/servise/remote_servise/remote_popular_product_service.dart';
 import '../model/ad_banner.dart';
@@ -16,9 +19,11 @@ class HomeController extends GetxController {
   RxBool isBannerLoading = true.obs;
   RxBool isPopularCategoryLoading = true.obs;
   RxBool isPopularProductLoading = true.obs;
+  final LocalAdBannerService _localAdBannerService = LocalAdBannerService();
 
   @override
-  void onInit() {
+  void onInit() async {
+    await _localAdBannerService.init();
     getAdbanners();
     getPopularCategories();
     getPopularProduct();
@@ -28,9 +33,17 @@ class HomeController extends GetxController {
   void getAdbanners() async {
     try {
       isBannerLoading(true);
+      //assigning local ad banners call api
+      if (_localAdBannerService.getAdBanners().isNotEmpty) {
+        bannerList.assignAll(_localAdBannerService.getAdBanners());
+      }
+      //call API
       var result = await remoteBannerServise().get();
       if (result != null) {
+        //assign API result
         bannerList.assignAll(adBannerListFromJson(result.body));
+        //save API result to local db
+        _localAdBannerService.assignAllAdBanners(adBanners: adBannerListFromJson(result.body));
       }
     } finally {
       print(bannerList.first.image);
