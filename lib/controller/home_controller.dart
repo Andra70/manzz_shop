@@ -1,4 +1,7 @@
 import 'package:get/get.dart';
+import 'package:manzz_shop/servise/local_servise/local_ad_banner_servise.dart';
+import 'package:manzz_shop/servise/local_servise/local_category_servise.dart';
+import 'package:manzz_shop/servise/local_servise/local_product_servise.dart';
 import '../model/product.dart';
 import 'package:manzz_shop/servise/remote_servise/remote_popular_category_service.dart';
 import '../servise/remote_servise/remote_popular_product_service.dart';
@@ -16,9 +19,15 @@ class HomeController extends GetxController {
   RxBool isBannerLoading = true.obs;
   RxBool isPopularCategoryLoading = true.obs;
   RxBool isPopularProductLoading = true.obs;
+  final LocalAdBannerService _localAdBannerService = LocalAdBannerService();
+  final LocalPopularCategoryService _localPopularCategoryService = LocalPopularCategoryService();
+  final LocalPopularProductService _localPopularProductService = LocalPopularProductService();
 
   @override
-  void onInit() {
+  void onInit() async {
+    await _localAdBannerService.init();
+    await _localPopularCategoryService.init();
+    await _localPopularProductService.init();
     getAdbanners();
     getPopularCategories();
     getPopularProduct();
@@ -28,9 +37,14 @@ class HomeController extends GetxController {
   void getAdbanners() async {
     try {
       isBannerLoading(true);
+      //assigning local ad banner sebelum manggil api
+      if (_localAdBannerService.getAdBanner().isNotEmpty){
+        bannerList.assignAll(_localAdBannerService.getAdBanner());
+      }
       var result = await remoteBannerServise().get();
       if (result != null) {
         bannerList.assignAll(adBannerListFromJson(result.body));
+        _localAdBannerService.assignAllAdBannerList(adBanner: adBannerListFromJson(result.body));
       }
     } finally {
       print(bannerList.first.image);
@@ -41,9 +55,14 @@ class HomeController extends GetxController {
   void getPopularCategories() async {
     try {
       isPopularCategoryLoading(true);
+      //assigning local popular category sebelum manggil api
+      if (_localPopularCategoryService.getPopularCategory().isNotEmpty){
+        popularCategoryList.assignAll(_localPopularCategoryService.getPopularCategory());
+      }
       var result = await RemotePopularCategoryService().get();
       if (result != null) {
         popularCategoryList.assignAll(popularCategoryListFromJson(result.body));
+        _localPopularCategoryService.assignAllPopularCategoryList(popularCategories: popularCategoryListFromJson(result.body));
       }
     } finally {
       print(popularCategoryList.length);
@@ -55,9 +74,14 @@ class HomeController extends GetxController {
   void getPopularProduct() async {
     try {
       isPopularProductLoading(true);
+      //assigning local popular product sebelum manggil api
+      if (_localPopularProductService.getPopularProduct().isNotEmpty){
+        popularProductList.assignAll(_localPopularProductService.getPopularProduct());
+      }
       var result = await RemotePopularProductService().get();
       if (result != null) {
         popularProductList.assignAll(popularProductListFromJson(result.body));
+        _localPopularProductService.assignAllPopularProductList(PopularProduct: popularProductListFromJson(result.body));
       }
     } finally {
       print(popularProductList.length);
