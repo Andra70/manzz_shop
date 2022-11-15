@@ -3,6 +3,7 @@ import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 import 'package:get/get.dart';
 import 'package:manzz_shop/controller/dashboard_controller.dart';
 import 'package:manzz_shop/view/home/home_screen.dart';
+import 'package:manzz_shop/view/product/product_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({Key? key}) : super(key: key);
@@ -16,10 +17,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget build(BuildContext context) {
     return GetBuilder<DashboardController>(
       builder: (controller) => Scaffold(
+        backgroundColor: Colors.grey.shade100, //rencananya mau gw rubah warnanya jadi orange biar lebih cocok
         body: SafeArea(child: IndexedStack(
           index: controller.tabIndex,
           children: [
             const HomeScreen(),
+            const ProductScreen(),
             Container(
               color: Colors.red,
             ),
