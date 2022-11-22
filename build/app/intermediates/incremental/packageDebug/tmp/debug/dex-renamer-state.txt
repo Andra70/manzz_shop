@@ -1,4 +1,4 @@
-#Mon Nov 14 08:52:22 ICT 2022
+#Mon Nov 21 09:20:49 ICT 2022
 base.0=D\:\\Project SMK\\Pak Aji\\\#13\\manzz_shop-1\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
 renamed.0=classes.dex
 path.0=classes.dex
